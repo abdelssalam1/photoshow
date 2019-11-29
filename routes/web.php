@@ -11,8 +11,23 @@
 |
 */
 
-Route::get('/', 'index@albumsController');
-Route::get('/albums', 'index@albumsController');
-Route::get('/albums/create', 'create@albumsController');
-Route::get('/photos', 'index@photosController');
-Route::get('/photos/create', 'create@photosController');
+Route::get('/', 'albumsController@index');
+Route::get('/albums', 'albumsController@index');
+Route::post('/albums/store', 'albumsController@store')->middleware('auth');
+Route::get('/albums/create', 'albumsController@create')->middleware('auth');
+Route::get('/albums/{id}', 'albumsController@show')->middleware('auth');
+Route::delete('/albums/{id}', 'albumsController@destroy')->middleware('auth');
+Route::get('/photos', 'photosController@index')->middleware('auth');
+Route::get('/photos/create/{id}', 'photosController@create')->middleware('auth');
+Route::post('/photos/store', 'photosController@store')->middleware('auth');
+Route::get('/photos/{id}', 'photosController@show')->middleware('auth');
+Route::delete('/photos/{id}', 'photosController@destroy')->middleware('auth');
+
+
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/welcome', function(){return view('welcome');})->name('home');
+
+
+
